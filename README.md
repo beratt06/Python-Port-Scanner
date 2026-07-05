@@ -1,6 +1,6 @@
 # Python Port Scanner 🔍
 
-Ağ programlama, soket (socket) yapıları ve siber güvenlik konseptlerini (TCP/UDP handshake, Raw Sockets, Banner Grabbing) daha iyi kavramak amacıyla **tamamen sıfırdan ve eğitim amaçlı** geliştirdiğim Python tabanlı bir Nmap klonudur. Proje, standart Python kütüphaneleri kullanılarak geliştirilmiş olup harici bir bağımlılık (dependency) barındırmaz.
+Ağ programlama, soket (socket) yapıları ve siber güvenlik konseptlerini (TCP/UDP handshake, Raw Sockets, Banner Grabbing) daha iyi kavramak amacıyla **eğitim amaçlı** geliştirdiğim Python tabanlı bir Nmap klonudur. Proje, standart Python kütüphaneleri kullanılarak geliştirilmiş olup harici bir bağımlılık (dependency) barındırmaz.
 
 ⚠️ **Yasal Uyarı:** Bu araç sadece eğitim, defansif güvenlik testleri ve ağ mimarilerini anlamak için yazılmıştır. Lütfen yalnızca kendi ağınızda veya yetkili olduğunuz sistemlerde kullanın. İzinsiz taramalar yasal sorumluluk doğurabilir.
 
@@ -79,8 +79,6 @@ python scanner.py -t example.com -p 1-65535 --threads 300 --format html --output
 
 ## 📂 Kod Mimarisi
 
-Öğrenim sürecimde kodları olabildiğince modüler tutmaya çalıştım:
-
 ```text
 Python-Port-Scanner/
 ├── scanner.py              # Ana giriş noktası (Argümanları işler ve orkestrasyonu sağlar)
@@ -99,10 +97,9 @@ Python-Port-Scanner/
 ---
 
 ## 📝 Gelecek Geliştirmeler (TODO)
-Öğrencilik serüvenim boyunca bu projeye eklemeyi planladığım özellikler:
 - [ ] IPv6 Desteği
 - [ ] Tarama süresini optimize etmek için hedefi paket yağmuruna tutmayan `--stealth` (gecikmeli) mod
 - [ ] Gelişmiş bir CVE (Zafiyet) veritabanı API bağlantısı ile tespit edilen versiyonlarda açık olup olmadığını sorgulama
 
 ---
-*Bu proje, Ağ Protokolleri ve Siber Güvenlik dünyasına atılan bir adım olarak geliştirilmiştir. Katkı ve tavsiyelere her zaman açıktır!*
+*Proje Katkı ve tavsiyelere her zaman açıktır.*
