@@ -1,4 +1,4 @@
-# Mini Nmap (Python Port Scanner) 🔍
+# Python Port Scanner 🔍
 
 Ağ programlama, soket (socket) yapıları ve siber güvenlik konseptlerini (TCP/UDP handshake, Raw Sockets, Banner Grabbing) daha iyi kavramak amacıyla **tamamen sıfırdan ve eğitim amaçlı** geliştirdiğim Python tabanlı bir Nmap klonudur. Proje, standart Python kütüphaneleri kullanılarak geliştirilmiş olup harici bir bağımlılık (dependency) barındırmaz.
 
