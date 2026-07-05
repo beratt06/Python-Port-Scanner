@@ -1,11 +1,8 @@
 """
-port_scanner.py
 TCP connect scan yapan çekirdek modül.
 ThreadPoolExecutor kullanarak birden çok portu paralel tarar.
 
-Not: Bu, nmap'in "-sT" (TCP connect scan) moduna karşılık gelir.
-Ham SYN scan (-sS) raw socket + root yetkisi gerektirir; bu basit
-sürümde bilinçli olarak dahil edilmemiştir.
+Not: Bu, nmap'in -sT özelliğinin basit versiyonudur.
 """
 
 import socket

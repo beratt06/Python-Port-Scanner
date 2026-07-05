@@ -1,8 +1,6 @@
 """
-common_ports.py
-IANA tarafından atanmış / yaygın kullanılan port -> servis adı eşlemesi.
-Banner alınamadığında bile port numarasına bakarak "muhtemel servis"
-tahmini yapmak için kullanılır (nmap-services dosyasının küçük bir alt kümesi).
+Banner alınamadığında bile port numarasına bakarak muhtemel servis
+tahmini yapmak için kullanılan tabloyu yazdık.
 """
 
 TCP_COMMON_PORTS = {

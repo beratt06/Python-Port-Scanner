@@ -1,17 +1,14 @@
 """
-fingerprint.py
 Banner metnine bakarak servis adı ve versiyonunu tahmin eden basit,
 regex tabanlı bir imza veritabanı.
 
-nmap'in service/version detection (-sV) özelliğinin çok basitleştirilmiş hali.
+nmap'in -sV özelliğinin basit versiyonu
 """
 
 import re
 
 from core.common_ports import guess_service_by_port
 
-# Her imza: (regex, servis_adi, versiyon_grubu_index)
-# Regex eşleşirse ilgili group() versiyon bilgisini taşır (None ise versiyon yok).
 SIGNATURES = [
     # --- SSH ---
     (re.compile(r"SSH-([\d.]+)-OpenSSH[_-]([\w.]+)", re.I), "OpenSSH", 2),
@@ -59,7 +56,6 @@ SIGNATURES = [
 ]
 
 # Bilinen eski / riskli versiyonlar için çok basit bir "uyarı" sözlüğü.
-# GERÇEK bir CVE veritabanı DEĞİLDİR, sadece anahtar kelime eşleşmesidir.
 RISK_KEYWORDS = {
     "vsftpd 2.3.4": "Bilinen backdoor içeren eski vsFTPd sürümü (örnek: CVE-2011-2523 kapsamı).",
     "openssh 4.": "Çok eski OpenSSH sürümü, güncellenmesi önerilir.",

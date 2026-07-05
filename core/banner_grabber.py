@@ -1,34 +1,30 @@
-"""
-banner_grabber.py
-Açık bir porta bağlanıp servisin kendini tanıttığı ilk veriyi (banner) okur.
-Bazı servisler (HTTP gibi) bağlantı kurulduğunda kendiliğinden veri göndermez,
-bu yüzden protokole özel küçük "prob" istekleri gönderiyoruz.
-nmap'in service-probes veritabanının çok küçük bir alt kümesi gibi düşünülebilir.
-"""
-
 import socket
 import ssl
 import subprocess
 import platform
 import re
 
-# Bazı iyi bilinen portlar için gönderilecek prob istekleri.
-# Anahtar: port numarası, değer: gönderilecek bytes
+"""
+PROBES tanımlamamızın sebebi bazı servisler bağlandığımız gibi banner(tanıtımlarını) bize gönderir.
+Ve hangi sürümü vesaaire kullandıklarını söyler (FTP, SSH vs.) ama bazı servisler bizden istek bekler.
+Eğer o istek gelmezse banner göndermezler. Bu yüzden bazı portlar için probe gönderiyoruz.
+"""
+
 PROBES = {
     80: b"HEAD / HTTP/1.0\r\n\r\n",
     8080: b"HEAD / HTTP/1.0\r\n\r\n",
     8443: b"HEAD / HTTP/1.0\r\n\r\n",
-    443: b"HEAD / HTTP/1.0\r\n\r\n",  # TLS handshake sonrasi kullanilacak
-    21: b"",   # FTP zaten bağlanınca banner yollar
-    22: b"",   # SSH zaten bağlanınca banner yollar
-    25: b"",   # SMTP zaten bağlanınca banner yollar
-    110: b"",  # POP3 zaten banner yollar
-    143: b"",  # IMAP zaten banner yollar
-    6379: b"PING\r\n",           # Redis
-    11211: b"version\r\n",       # Memcached
-    5900: b"",                   # VNC zaten banner yollar (RFB ...)
-    23: b"",                     # Telnet genelde login prompt yollar
-    3306: b"",                   # MySQL handshake paketini kendisi yollar
+    443: b"HEAD / HTTP/1.0\r\n\r\n",  
+    21: b"",   
+    22: b"",   
+    25: b"",   
+    110: b"",  
+    143: b"",  
+    6379: b"PING\r\n",     
+    11211: b"version\r\n",      
+    5900: b"",                   
+    23: b"",                     
+    3306: b"",                  
 }
 
 DEFAULT_PROBE = b"\r\n"  # Bilinmeyen portlar için nötr bir prob
@@ -36,16 +32,15 @@ DEFAULT_PROBE = b"\r\n"  # Bilinmeyen portlar için nötr bir prob
 
 def grab_banner(ip: str, port: int, timeout: float = 2.0) -> str:
     """
-    Belirtilen ip:port adresine bağlanır, banner okumaya çalışır.
-    Gerekirse SSL/TLS handshake yapar.
-    Başarısız olursa boş string döner.
+   Burada ise socket kütüphanesi ile hedefe tcp bağlantısı kurup banner'ı almaya çalışıyoruz.
+     Eğer port 443 veya 8443 ise SSL handshake yapıyoruz.
     """
+
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(timeout)
         sock.connect((ip, port))
 
-        # Eğer bilinen SSL portları ise (örn: 443, 8443) güvenli bağlantı kurmayı dene
         if port in (443, 8443):
             context = ssl.create_default_context()
             context.check_hostname = False
@@ -53,7 +48,7 @@ def grab_banner(ip: str, port: int, timeout: float = 2.0) -> str:
             try:
                 sock = context.wrap_socket(sock, server_hostname=ip)
             except ssl.SSLError:
-                # SSL handshake başarısız olursa normal soket ile devam et (bazen bu portlarda düz HTTP çalışır)
+                # SSL handshake başarısız olursa normal soket ile devam et
                 pass
 
         probe = PROBES.get(port, DEFAULT_PROBE)
