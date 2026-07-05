@@ -1,0 +1,1 @@
+# Bu proje sadece Python standart kütüphanesini kullanır, ek bağımlılık yoktur.

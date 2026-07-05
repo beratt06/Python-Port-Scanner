@@ -1,0 +1,27 @@
+# Python önbellek (cache) dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal ortam (Virtual Environment)
+venv/
+env/
+ENV/
+
+# IDE ve Editör klasörleri
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# İşletim sistemi kalıntıları
+.DS_Store
+Thumbs.db
+
+# Kullanıcı tarafından üretilen rapor klasörü ve olası çıktı dosyaları
+# (Hedeflerin gizliliği ve gereksiz dosya kalabalığı için raporlar git'e gönderilmez)
+raporlar/
+reports/
+*.json
+*.html
+*.csv
